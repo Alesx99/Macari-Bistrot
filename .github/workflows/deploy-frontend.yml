@@ -44,7 +44,7 @@ jobs:
         run: cd frontend && npm run build
         env:
           GITHUB_PAGES: "true"
-          VITE_API_BASE_URL: https://macari-bistrot-api.onrender.com
+          VITE_API_BASE_URL: https://macari-bistrot-backend.onrender.com
 
       - name: Configurazione GitHub Pages
         uses: actions/configure-pages@v5
