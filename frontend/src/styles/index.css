@@ -101,6 +101,16 @@
     page-break-after: avoid;
   }
 
+  /* Opzione "una sezione per pagina": ogni sezione parte su un nuovo foglio. */
+  .print-section--page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+  .print-section--page-break:first-of-type {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
   /* Filigrana: posizione fissa, dietro al testo — in stampa usa position:fixed */
   .print-watermark {
     position: fixed;

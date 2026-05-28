@@ -8,7 +8,7 @@ import { formatPrice, getOrderedSections } from '../hooks/useMenu.js';
  * - Filigrana centrale a bassa opacità (se presente)
  * - Regole CSS page-break-inside: avoid (vedi index.css)
  */
-const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, selectedSections }, ref) {
+const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, selectedSections, sectionPerPage = false }, ref) {
   const fontSize = `${settings.print_font_size_pt || 11}pt`;
   const accent = settings.accent_color || '#8B6F3E';
   const allOrderedSections = getOrderedSections(menu.sections, settings);
@@ -81,7 +81,11 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
 
         {/* Sezioni */}
         {orderedSections.map(section => (
-          <section key={section} className="print-section" style={{ marginBottom: '1.4em' }}>
+          <section
+            key={section}
+            className={`print-section ${sectionPerPage ? 'print-section--page-break' : ''}`}
+            style={{ marginBottom: '1.4em' }}
+          >
             <h2 style={{
               fontFamily: '"Playfair Display", Georgia, serif',
               fontSize: '1.4em',
@@ -135,7 +139,7 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
           fontFamily: 'Montserrat, sans-serif',
           fontStyle: 'italic'
         }}>
-          I prezzi sono espressi in {settings.currency_symbol || '€'} e includono coperto e servizio.
+          Powered by Alesx99
         </footer>
       </div>
     </div>

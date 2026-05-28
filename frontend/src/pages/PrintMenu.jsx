@@ -16,6 +16,7 @@ export default function PrintMenu() {
 
   const [selectedSections, setSelectedSections] = useState([]);
   const [initialized, setInitialized] = useState(false);
+  const [sectionPerPage, setSectionPerPage] = useState(false);
 
   // Ottieni l'elenco delle sezioni ordinate secondo le impostazioni dell'admin
   const allSections = getOrderedSections(menu.sections, settings);
@@ -35,7 +36,8 @@ export default function PrintMenu() {
 
   const handlePrint = useReactToPrint({
     contentRef: printRef,
-    documentTitle: `Menu - ${settings.restaurant_name || 'Macari Bistrot'}`,
+    // Lasciamo vuoto per evitare il titolo nel browser header di stampa.
+    documentTitle: '',
     pageStyle: `
       @page {
         size: A4;
@@ -114,6 +116,14 @@ export default function PrintMenu() {
               <h2 className="text-xs font-bold text-bistrot-700 uppercase tracking-wider">
                 Categorie da Stampare ({selectedSections.length} di {allSections.length})
               </h2>
+              <label className="inline-flex items-center gap-2 text-xs text-bistrot-700">
+                <input
+                  type="checkbox"
+                  checked={sectionPerPage}
+                  onChange={(e) => setSectionPerPage(e.target.checked)}
+                />
+                Una sezione per pagina
+              </label>
               {/* Pulsanti di controllo rapido */}
               <div className="flex flex-wrap gap-2 text-xs">
                 <button onClick={selectAll} className="text-bistrot-600 hover:text-bistrot-800 font-semibold transition-colors">
@@ -177,7 +187,13 @@ export default function PrintMenu() {
               <p className="text-sm max-w-sm mt-1">Seleziona almeno una categoria nella barra superiore per visualizzare l'anteprima di stampa.</p>
             </div>
           ) : (
-            <PrintableMenu ref={printRef} menu={menu} settings={settings} selectedSections={selectedSections} />
+            <PrintableMenu
+              ref={printRef}
+              menu={menu}
+              settings={settings}
+              selectedSections={selectedSections}
+              sectionPerPage={sectionPerPage}
+            />
           )}
         </div>
       </div>
