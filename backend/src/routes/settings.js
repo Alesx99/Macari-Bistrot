@@ -39,7 +39,10 @@ const ALLOWED_KEYS = new Set([
   'print_paper_color',
   'print_paper_opacity',
   'print_paper_intensity',
-  'public_base_url'
+  'public_base_url',
+  'print_item_spacing_em',
+  'print_section_spacing_em',
+  'print_auto_distribute'
 ]);
 
 /** GET /api/settings — pubblico (serve a public view e admin) */

@@ -225,6 +225,36 @@ export default function StyleEditor({ settings, onSaved }) {
 
         <div className="border-t border-bistrot-100 pt-5 space-y-4">
           <h4 className="font-semibold text-bistrot-700 text-sm uppercase tracking-wider">
+            Spaziatura e Impaginazione
+          </h4>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="label">Spaziatura tra piatti (em)</label>
+              <input className="input" type="number" min="0.1" max="3" step="0.05"
+                     value={form.print_item_spacing_em !== undefined ? form.print_item_spacing_em : 0.4}
+                     onChange={(e) => update('print_item_spacing_em', e.target.value)} />
+            </div>
+            <div>
+              <label className="label">Spaziatura tra sezioni (em)</label>
+              <input className="input" type="number" min="0.2" max="5" step="0.05"
+                     value={form.print_section_spacing_em !== undefined ? form.print_section_spacing_em : 1.4}
+                     onChange={(e) => update('print_section_spacing_em', e.target.value)} />
+            </div>
+            <div className="md:col-span-2">
+              <label className="inline-flex items-center gap-2 text-sm text-bistrot-700">
+                <input
+                  type="checkbox"
+                  checked={String(form.print_auto_distribute || 'false') === 'true'}
+                  onChange={(e) => update('print_auto_distribute', e.target.checked ? 'true' : 'false')}
+                />
+                Distribuzione verticale automatica (riempimento pagina se ci sono pochi elementi)
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-bistrot-100 pt-5 space-y-4">
+          <h4 className="font-semibold text-bistrot-700 text-sm uppercase tracking-wider">
             Cornice decorativa
           </h4>
           <div className="grid md:grid-cols-2 gap-4">

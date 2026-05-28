@@ -152,6 +152,15 @@
     padding-right: 2mm;
     box-sizing: border-box;
   }
+  .print-content--distribute {
+    justify-content: space-between;
+  }
+  .print-content--distribute .print-sections {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
   .print-frame {
     position: fixed;
     --safe-margin: var(--print-margin, 15mm);
@@ -278,6 +287,15 @@
   padding-left: 2mm;
   padding-right: 2mm;
   box-sizing: border-box;
+}
+.print-page .print-content--distribute {
+  justify-content: space-between;
+}
+.print-page .print-content--distribute .print-sections {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 .print-page .print-frame {
   position: absolute;

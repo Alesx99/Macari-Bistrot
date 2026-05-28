@@ -22,6 +22,7 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
   const frameStyle = settings.print_frame_style || 'classic';
   const frameColor = settings.print_frame_color || accent;
   const frameThickness = clampNumber(settings.print_frame_thickness, 2, 1, 8);
+  const autoDistribute = String(settings.print_auto_distribute || 'false') === 'true';
   const allOrderedSections = getOrderedSections(menu.sections, settings);
   const orderedSections = selectedSections !== undefined
     ? allOrderedSections.filter(s => selectedSections.includes(s))
@@ -68,7 +69,7 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
         />
       )}
 
-      <div className={`print-content ${frameEnabled ? 'print-content--framed' : ''}`}>
+      <div className={`print-content ${frameEnabled ? 'print-content--framed' : ''} ${autoDistribute ? 'print-content--distribute' : ''}`}>
 
         {/* Intestazione */}
         <header style={{ textAlign: 'center', marginBottom: '1.2em' }}>
@@ -107,7 +108,7 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
             <section
               key={section}
               className={`print-section ${sectionPerPage ? 'print-section--page-break' : ''}`}
-              style={{ marginBottom: '1.4em' }}
+              style={{ marginBottom: `${settings.print_section_spacing_em !== undefined ? settings.print_section_spacing_em : 1.4}em` }}
             >
               <h2 style={{
                 fontFamily: `"${sectionTitleFont}", Georgia, serif`,
@@ -125,7 +126,11 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
 
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                 {menu.grouped[section].map(item => (
-                  <li key={item.id} className="print-item">
+                  <li
+                    key={item.id}
+                    className="print-item"
+                    style={{ marginBottom: `${settings.print_item_spacing_em !== undefined ? settings.print_item_spacing_em : 0.4}em` }}
+                  >
                     <div className="price-row">
                       <span style={{
                         fontFamily: `"${bodyFont}", serif`,
