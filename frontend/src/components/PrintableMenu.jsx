@@ -105,12 +105,12 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
                   <div className="price-row">
                     <span style={{
                       fontFamily: '"Playfair Display", Georgia, serif',
-                      fontWeight: 600
+                      fontWeight: 500
                     }}>
                       {item.title}
                     </span>
                     <span className="leader" aria-hidden="true" />
-                    <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600 }}>
+                    <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
                       {formatPrice(item.price, settings.currency_symbol)}
                     </span>
                   </div>

@@ -110,20 +110,26 @@ export default function PrintMenu() {
             </div>
           </div>
 
+          <div className="flex items-center justify-between gap-3 border-b border-bistrot-100 pb-4">
+            <p className="text-sm text-bistrot-600">
+              Modalita stampa: scegli se impaginare normalmente o con una sezione per pagina.
+            </p>
+            <label className="inline-flex items-center gap-2 rounded-lg border border-bistrot-200 bg-white px-3 py-2 text-sm text-bistrot-700">
+              <input
+                type="checkbox"
+                checked={sectionPerPage}
+                onChange={(e) => setSectionPerPage(e.target.checked)}
+              />
+              Una sezione per pagina
+            </label>
+          </div>
+
           {/* Selettori di Categoria */}
           <div>
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <h2 className="text-xs font-bold text-bistrot-700 uppercase tracking-wider">
                 Categorie da Stampare ({selectedSections.length} di {allSections.length})
               </h2>
-              <label className="inline-flex items-center gap-2 text-xs text-bistrot-700">
-                <input
-                  type="checkbox"
-                  checked={sectionPerPage}
-                  onChange={(e) => setSectionPerPage(e.target.checked)}
-                />
-                Una sezione per pagina
-              </label>
               {/* Pulsanti di controllo rapido */}
               <div className="flex flex-wrap gap-2 text-xs">
                 <button onClick={selectAll} className="text-bistrot-600 hover:text-bistrot-800 font-semibold transition-colors">
