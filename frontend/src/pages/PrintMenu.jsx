@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 import { useMenu, getOrderedSections } from '../hooks/useMenu.js';
 import PrintableMenu from '../components/PrintableMenu.jsx';
@@ -96,7 +97,7 @@ export default function PrintMenu() {
               </p>
             </div>
             <div className="flex gap-2">
-              <a href="/" className="btn-secondary">← Torna al menù</a>
+              <Link to="/" className="btn-secondary">← Torna al menù</Link>
               <button
                 onClick={handlePrint}
                 className="btn-primary shadow-md"
