@@ -139,6 +139,10 @@
     display: flex;
     flex-direction: column;
   }
+  .print-content--framed {
+    padding: 7mm;
+    box-sizing: border-box;
+  }
   .print-frame {
     position: absolute;
     inset: 2mm;
@@ -257,6 +261,10 @@
   min-height: calc(297mm - (var(--print-margin, 15mm) * 2));
   display: flex;
   flex-direction: column;
+}
+.print-page .print-content--framed {
+  padding: 7mm;
+  box-sizing: border-box;
 }
 .print-page .print-frame {
   position: absolute;

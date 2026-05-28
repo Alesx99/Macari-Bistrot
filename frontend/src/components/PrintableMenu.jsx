@@ -57,7 +57,7 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
         </div>
       )}
 
-      <div className="print-content">
+      <div className={`print-content ${frameEnabled ? 'print-content--framed' : ''}`}>
         {frameEnabled && (
           <div
             className={`print-frame print-frame--${frameStyle}`}
