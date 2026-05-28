@@ -140,17 +140,21 @@
     flex-direction: column;
   }
   .print-content--framed {
-    padding: 7mm;
+    padding-left: 2mm;
+    padding-right: 2mm;
     box-sizing: border-box;
   }
   .print-frame {
-    position: absolute;
-    inset: 2mm;
+    position: fixed;
+    --safe-margin: var(--print-margin, 15mm);
+    --frame-gap: clamp(2mm, calc(var(--safe-margin) - 4mm), 6mm);
+    inset: calc(-1 * var(--frame-gap));
     pointer-events: none;
-    z-index: 1;
+    z-index: 9999;
     border: var(--print-frame-thickness, 2px) solid var(--print-frame-color, #8B6F3E);
     border-radius: 2mm;
     opacity: 0.8;
+    box-sizing: border-box;
   }
   .print-frame--double {
     border-style: double;
@@ -263,17 +267,21 @@
   flex-direction: column;
 }
 .print-page .print-content--framed {
-  padding: 7mm;
+  padding-left: 2mm;
+  padding-right: 2mm;
   box-sizing: border-box;
 }
 .print-page .print-frame {
   position: absolute;
-  inset: 2mm;
+  --safe-margin: var(--print-margin, 15mm);
+  --frame-gap: clamp(2mm, calc(var(--safe-margin) - 4mm), 6mm);
+  inset: calc(-1 * var(--frame-gap));
   pointer-events: none;
   z-index: 1;
   border: var(--print-frame-thickness, 2px) solid var(--print-frame-color, #8B6F3E);
   border-radius: 2mm;
   opacity: 0.8;
+  box-sizing: border-box;
 }
 .print-page .print-frame--double {
   border-style: double;
