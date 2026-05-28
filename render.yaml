@@ -1,0 +1,25 @@
+# Render Blueprint — Backend Macàri Bistrot
+# Questo file configura il deploy automatico del backend su Render.
+# Le variabili con sync: false vanno impostate manualmente nella dashboard Render.
+
+services:
+  - type: web
+    name: macari-bistrot-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node src/server.js
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://alesx99.github.io
+      - key: NODE_ENV
+        value: production

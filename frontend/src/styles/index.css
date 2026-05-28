@@ -1,0 +1,176 @@
+/* Font Google scaricati localmente per uso 100% offline */
+@import '@fontsource/playfair-display/400.css';
+@import '@fontsource/playfair-display/600.css';
+@import '@fontsource/playfair-display/700.css';
+@import '@fontsource/montserrat/300.css';
+@import '@fontsource/montserrat/400.css';
+@import '@fontsource/montserrat/500.css';
+@import '@fontsource/montserrat/600.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    @apply font-sans text-bistrot-900 antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
+
+/* ============================================================
+   Componenti riutilizzabili
+   ============================================================ */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg
+           font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn bg-bistrot-600 text-bistrot-50 hover:bg-bistrot-700;
+  }
+  .btn-secondary {
+    @apply btn bg-bistrot-100 text-bistrot-800 hover:bg-bistrot-200;
+  }
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700;
+  }
+  .input {
+    @apply w-full px-3 py-2 rounded-lg border border-bistrot-200 bg-white
+           focus:outline-none focus:ring-2 focus:ring-bistrot-400 focus:border-transparent;
+  }
+  .label {
+    @apply block text-sm font-medium text-bistrot-700 mb-1;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-bistrot-100;
+  }
+}
+
+/* ============================================================
+   STAMPA — il cuore del progetto
+   Regole dedicate per produrre un PDF/stampa "tipo trattoria":
+   - logo in alto
+   - dish .......... prezzo (puntatori di prezzo)
+   - filigrana centrata, opacità ridotta
+   - nessuna interruzione di pagina a metà piatto
+   ============================================================ */
+@media print {
+  @page {
+    size: A4;
+    margin: var(--print-margin, 15mm);
+  }
+
+  html, body {
+    background: var(--print-paper-bg, #ffffff) !important;
+    color: #1a1a1a !important;
+    font-size: var(--print-font-size, 11pt);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Nascondi tutto tranne l'area di stampa */
+  body * { visibility: hidden; }
+  .print-area, .print-area * { visibility: visible; }
+  .print-area {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+  }
+  .no-print { display: none !important; }
+
+  /* Sezioni del menù: non spezzare a metà se possibile */
+  .print-section { break-inside: avoid; page-break-inside: avoid; }
+
+  /* Singolo piatto: MAI spezzato a metà fra due pagine */
+  .print-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 0.4em;
+  }
+
+  /* Titoli di sezione: non lasciare titolo orfano in fondo pagina */
+  .print-section h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Filigrana: posizione fissa, dietro al testo — in stampa usa position:fixed */
+  .print-watermark {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .print-watermark img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 60%;
+    max-height: 60%;
+    opacity: 0.08;
+  }
+  /* Il div del pattern deve riempire tutto il contenitore */
+  .print-watermark > div {
+    position: absolute;
+    inset: 0;
+  }
+  .print-content { position: relative; z-index: 1; }
+}
+
+/* ============================================================
+   Stili applicati anche in anteprima a schermo
+   ============================================================ */
+.print-page {
+  position: relative;
+  background: var(--print-paper-bg, #ffffff);
+  color: #1a1a1a;
+  font-family: 'Playfair Display', Georgia, serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Filigrana: anteprima a schermo — usa position:absolute dentro .print-page */
+.print-page .print-watermark {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.print-page .print-watermark > div {
+  position: absolute;
+  inset: 0;
+}
+.print-page .print-watermark img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60%;
+  max-height: 60%;
+  opacity: 0.08;
+}
+.print-page .print-content {
+  position: relative;
+  z-index: 1;
+}
+
+.print-page .price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+.print-page .price-row .leader {
+  flex: 1 1 auto;
+  border-bottom: 1px dotted #444;
+  transform: translateY(-4px);
+  min-width: 1rem;
+}

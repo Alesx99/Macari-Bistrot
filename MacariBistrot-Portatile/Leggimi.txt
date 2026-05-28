@@ -1,0 +1,19 @@
+======================================================
+  Macàri Bistrot — Versione Portatile per Chiavetta USB
+======================================================
+
+Questo pacchetto contiene l'applicazione Macàri Bistrot pre-configurata per essere eseguita interamente offline direttamente da una chiavetta USB (Zero-Install).
+
+ISTRUZIONI PER L'USO:
+1. Copia l'intera cartella "MacariBistrot-Portatile" sulla tua chiavetta USB.
+2. Inserisci la chiavetta USB in qualsiasi computer Windows (del locale o personale).
+3. Apri la cartella e fai doppio clic sul file "avvio-portatile.bat".
+4. Il server si avvierà automaticamente e si aprirà il browser sul menù.
+
+CARATTERISTICHE DELLA VERSIONE PORTATILE:
+- FUNZIONA OVUNQUE: Non richiede che Node.js sia installato sul computer ospite. Utilizza il motore Node integrato nella cartella "bin".
+- DATI PROTETTI: Il database e le immagini caricate (loghi/sfondi) risiedono sulla chiavetta e vengono aggiornati in tempo reale.
+- CHIUSURA SICURA: Quando hai finito, premi un tasto qualsiasi sulla finestra nera del prompt dei comandi per arrestare il server e poter rimuovere in sicurezza la chiavetta.
+- BACKUP AUTOMATICI: Ad ogni avvio, viene creata una copia di sicurezza del database nella cartella "backend/data/backups/" per proteggerti da eventuali disconnessioni accidentali della chiavetta.
+
+Buon lavoro con Macàri Bistrot! 🍝

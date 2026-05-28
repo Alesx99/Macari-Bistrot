@@ -1,0 +1,59 @@
+# Deploy automatico del frontend Macàri Bistrot su GitHub Pages
+# Trigger: ogni push sul branch main
+
+name: Deploy Frontend su GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Permessi necessari per il deploy su GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Evita deploy concorrenti
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Installazione dipendenze frontend
+        run: cd frontend && npm ci
+
+      - name: Build del frontend per GitHub Pages
+        run: cd frontend && npm run build
+        env:
+          GITHUB_PAGES: "true"
+          VITE_API_BASE_URL: https://macari-bistrot-api.onrender.com
+
+      - name: Configurazione GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artefatto per Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist
+
+      - name: Deploy su GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
