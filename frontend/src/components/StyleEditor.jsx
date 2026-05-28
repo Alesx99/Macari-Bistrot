@@ -85,15 +85,15 @@ export default function StyleEditor({ settings, onSaved }) {
         </div>
 
         <div>
-          <label className="label">URL pubblico locale (Wi-Fi)</label>
+          <label className="label">URL pubblico del locale (es. menù online)</label>
           <input
             className="input"
             value={form.public_base_url || ''}
             onChange={(e) => update('public_base_url', e.target.value)}
-            placeholder="es: http://192.168.1.110:4000"
+            placeholder="es: https://alesx99.github.io/Macari-Bistrot"
           />
           <p className="text-xs text-bistrot-600 mt-1">
-            Usato per generare i QR dei tavoli. Se vuoto, verra usato l'URL corrente.
+            Usato per generare i QR dei tavoli. Se lasciato vuoto, verrà usato il link predefinito (https://alesx99.github.io/Macari-Bistrot).
           </p>
         </div>
 

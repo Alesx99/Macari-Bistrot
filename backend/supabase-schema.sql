@@ -57,7 +57,7 @@ INSERT INTO settings (key, value) VALUES
   ('print_paper_color',            '#ffffff'),
   ('print_paper_opacity',          '1'),
   ('print_paper_intensity',        '100'),
-  ('public_base_url',              '')
+  ('public_base_url',              'https://alesx99.github.io/Macari-Bistrot')
 ON CONFLICT (key) DO NOTHING;
 
 -- =====================

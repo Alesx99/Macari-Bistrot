@@ -274,7 +274,7 @@ export async function initSchema() {
     print_paper_color:    '#ffffff',
     print_paper_opacity:  '1',
     print_paper_intensity: '100',
-    public_base_url:      '',
+    public_base_url:      'https://alesx99.github.io/Macari-Bistrot',
     print_item_spacing_em: '0.4',
     print_section_spacing_em: '1.4',
     print_auto_distribute: 'false'

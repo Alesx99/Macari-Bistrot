@@ -21,12 +21,7 @@ export default function AdminQr() {
     const fromSettings = (settings.public_base_url || '').trim();
     if (fromSettings) return normalizeBaseUrl(fromSettings);
 
-    // In sviluppo (Vite su 5173/5174/...) i QR devono puntare al backend LAN :4000.
-    const port = window.location.port || '';
-    if (port.startsWith('517')) {
-      return normalizeBaseUrl(`${window.location.protocol}//${window.location.hostname}:4000`);
-    }
-    return normalizeBaseUrl(window.location.origin);
+    return 'https://alesx99.github.io/Macari-Bistrot';
   }, [settings.public_base_url]);
 
   useEffect(() => {
