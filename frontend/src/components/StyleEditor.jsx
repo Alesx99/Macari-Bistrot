@@ -19,6 +19,14 @@ const WATERMARK_PATTERNS = [
   { value: 'cross', label: 'Crocette' }
 ];
 
+const PRINT_FRAME_STYLES = [
+  { value: 'classic', label: 'Classica' },
+  { value: 'double', label: 'Doppia linea' },
+  { value: 'ornate', label: 'Con ghirigori agli angoli' },
+  { value: 'minimal_gold', label: 'Minimal gold' },
+  { value: 'vintage_menu', label: 'Vintage menu' }
+];
+
 export default function StyleEditor({ settings, onSaved }) {
   const [form, setForm] = useState(settings);
   const [saving, setSaving] = useState(false);
@@ -212,6 +220,61 @@ export default function StyleEditor({ settings, onSaved }) {
                      value={form.print_subtitle_size_em || 0.88}
                      onChange={(e) => update('print_subtitle_size_em', e.target.value)} />
             </div>
+          </div>
+        </div>
+
+        <div className="border-t border-bistrot-100 pt-5 space-y-4">
+          <h4 className="font-semibold text-bistrot-700 text-sm uppercase tracking-wider">
+            Cornice decorativa
+          </h4>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <label className="inline-flex items-center gap-2 text-sm text-bistrot-700">
+                <input
+                  type="checkbox"
+                  checked={String(form.print_frame_enabled || 'false') === 'true'}
+                  onChange={(e) => update('print_frame_enabled', e.target.checked ? 'true' : 'false')}
+                />
+                Abilita cornice decorativa nella stampa
+              </label>
+            </div>
+            {String(form.print_frame_enabled || 'false') === 'true' && (
+              <>
+                <div>
+                  <label className="label">Stile cornice</label>
+                  <select
+                    className="input"
+                    value={form.print_frame_style || 'classic'}
+                    onChange={(e) => update('print_frame_style', e.target.value)}
+                  >
+                    {PRINT_FRAME_STYLES.map((s) => (
+                      <option key={s.value} value={s.value}>{s.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="label">Colore cornice</label>
+                  <input
+                    type="color"
+                    className="h-10 w-full rounded-lg border border-bistrot-200 cursor-pointer"
+                    value={form.print_frame_color || '#8B6F3E'}
+                    onChange={(e) => update('print_frame_color', e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="label">Spessore cornice (px)</label>
+                  <input
+                    className="input"
+                    type="number"
+                    min="1"
+                    max="8"
+                    step="1"
+                    value={form.print_frame_thickness || 2}
+                    onChange={(e) => update('print_frame_thickness', e.target.value)}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
 

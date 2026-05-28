@@ -18,6 +18,10 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
   const sectionTitleSize = `${clampNumber(settings.print_section_title_size_em, 1.4, 0.8, 2.4)}em`;
   const bodySize = `${clampNumber(settings.print_body_size_em, 1, 0.8, 1.6)}em`;
   const subtitleSize = `${clampNumber(settings.print_subtitle_size_em, 0.88, 0.7, 1.3)}em`;
+  const frameEnabled = String(settings.print_frame_enabled || 'false') === 'true';
+  const frameStyle = settings.print_frame_style || 'classic';
+  const frameColor = settings.print_frame_color || accent;
+  const frameThickness = clampNumber(settings.print_frame_thickness, 2, 1, 8);
   const allOrderedSections = getOrderedSections(menu.sections, settings);
   const orderedSections = selectedSections !== undefined
     ? allOrderedSections.filter(s => selectedSections.includes(s))
@@ -54,6 +58,17 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
       )}
 
       <div className="print-content">
+        {frameEnabled && (
+          <div
+            className={`print-frame print-frame--${frameStyle}`}
+            style={{
+              ['--print-frame-color']: frameColor,
+              ['--print-frame-thickness']: `${frameThickness}px`
+            }}
+            aria-hidden="true"
+          />
+        )}
+
         {/* Intestazione */}
         <header style={{ textAlign: 'center', marginBottom: '1.2em' }}>
           {settings.logo_path && (
