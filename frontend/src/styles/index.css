@@ -148,7 +148,7 @@
     position: fixed;
     --safe-margin: var(--print-margin, 15mm);
     --frame-gap: clamp(2mm, calc(var(--safe-margin) - 4mm), 6mm);
-    inset: calc(-1 * var(--frame-gap));
+    inset: calc(var(--safe-margin) - var(--frame-gap));
     pointer-events: none;
     z-index: 9999;
     border: var(--print-frame-thickness, 2px) solid var(--print-frame-color, #8B6F3E);

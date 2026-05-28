@@ -57,17 +57,18 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
         </div>
       )}
 
+      {frameEnabled && (
+        <div
+          className={`print-frame print-frame--${frameStyle}`}
+          style={{
+            ['--print-frame-color']: frameColor,
+            ['--print-frame-thickness']: `${frameThickness}px`
+          }}
+          aria-hidden="true"
+        />
+      )}
+
       <div className={`print-content ${frameEnabled ? 'print-content--framed' : ''}`}>
-        {frameEnabled && (
-          <div
-            className={`print-frame print-frame--${frameStyle}`}
-            style={{
-              ['--print-frame-color']: frameColor,
-              ['--print-frame-thickness']: `${frameThickness}px`
-            }}
-            aria-hidden="true"
-          />
-        )}
 
         {/* Intestazione */}
         <header style={{ textAlign: 'center', marginBottom: '1.2em' }}>
