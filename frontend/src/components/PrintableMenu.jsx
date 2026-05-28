@@ -11,6 +11,13 @@ import { formatPrice, getOrderedSections } from '../hooks/useMenu.js';
 const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, selectedSections, sectionPerPage = false }, ref) {
   const fontSize = `${settings.print_font_size_pt || 11}pt`;
   const accent = settings.accent_color || '#8B6F3E';
+  const titleCenter = String(settings.print_section_title_center || 'false') === 'true';
+  const sectionTitleFont = settings.print_section_title_font || settings.font_title || 'Playfair Display';
+  const bodyFont = settings.print_body_font || settings.font_body || 'Playfair Display';
+  const subtitleFont = settings.print_subtitle_font || settings.font_body || 'Montserrat';
+  const sectionTitleSize = `${clampNumber(settings.print_section_title_size_em, 1.4, 0.8, 2.4)}em`;
+  const bodySize = `${clampNumber(settings.print_body_size_em, 1, 0.8, 1.6)}em`;
+  const subtitleSize = `${clampNumber(settings.print_subtitle_size_em, 0.88, 0.7, 1.3)}em`;
   const allOrderedSections = getOrderedSections(menu.sections, settings);
   const orderedSections = selectedSections !== undefined
     ? allOrderedSections.filter(s => selectedSections.includes(s))
@@ -79,63 +86,69 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
           }} />
         </header>
 
-        {/* Sezioni */}
-        {orderedSections.map(section => (
-          <section
-            key={section}
-            className={`print-section ${sectionPerPage ? 'print-section--page-break' : ''}`}
-            style={{ marginBottom: '1.4em' }}
-          >
-            <h2 style={{
-              fontFamily: '"Playfair Display", Georgia, serif',
-              fontSize: '1.4em',
-              color: accent,
-              borderBottom: `1px solid ${accent}`,
-              paddingBottom: 4,
-              marginBottom: 10,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase'
-            }}>
-              {section}
-            </h2>
+        <div className="print-sections">
+          {orderedSections.map(section => (
+            <section
+              key={section}
+              className={`print-section ${sectionPerPage ? 'print-section--page-break' : ''}`}
+              style={{ marginBottom: '1.4em' }}
+            >
+              <h2 style={{
+                fontFamily: `"${sectionTitleFont}", Georgia, serif`,
+                fontSize: sectionTitleSize,
+                textAlign: titleCenter ? 'center' : 'left',
+                color: accent,
+                borderBottom: `1px solid ${accent}`,
+                paddingBottom: 4,
+                marginBottom: 10,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase'
+              }}>
+                {section}
+              </h2>
 
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              {menu.grouped[section].map(item => (
-                <li key={item.id} className="print-item">
-                  <div className="price-row">
-                    <span style={{
-                      fontFamily: '"Playfair Display", Georgia, serif',
-                      fontWeight: 500
-                    }}>
-                      {item.title}
-                    </span>
-                    <span className="leader" aria-hidden="true" />
-                    <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
-                      {formatPrice(item.price, settings.currency_symbol)}
-                    </span>
-                  </div>
-                  {item.description && (
-                    <p style={{
-                      fontFamily: 'Montserrat, sans-serif',
-                      fontSize: '0.88em',
-                      fontStyle: 'italic',
-                      color: '#555',
-                      margin: '2px 0 0 0'
-                    }}>
-                      {item.description}
-                    </p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {menu.grouped[section].map(item => (
+                  <li key={item.id} className="print-item">
+                    <div className="price-row">
+                      <span style={{
+                        fontFamily: `"${bodyFont}", serif`,
+                        fontWeight: 500,
+                        fontSize: bodySize
+                      }}>
+                        {item.title}
+                      </span>
+                      <span className="leader" aria-hidden="true" />
+                      <span style={{
+                        fontFamily: `"${bodyFont}", sans-serif`,
+                        fontWeight: 500,
+                        fontSize: bodySize
+                      }}>
+                        {formatPrice(item.price, settings.currency_symbol)}
+                      </span>
+                    </div>
+                    {item.description && (
+                      <p style={{
+                        fontFamily: `"${subtitleFont}", sans-serif`,
+                        fontSize: subtitleSize,
+                        fontStyle: 'italic',
+                        color: '#555',
+                        margin: '2px 0 0 0'
+                      }}>
+                        {item.description}
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
 
-        <footer style={{
-          marginTop: '2em',
+        <footer className="print-powered-by" style={{
           textAlign: 'center',
-          fontSize: '0.75em',
-          color: '#888',
+          fontSize: '0.72em',
+          color: '#777',
           fontFamily: 'Montserrat, sans-serif',
           fontStyle: 'italic'
         }}>
@@ -147,6 +160,12 @@ const PrintableMenu = forwardRef(function PrintableMenu({ menu, settings, select
 });
 
 export default PrintableMenu;
+
+function clampNumber(value, fallback, min, max) {
+  const num = Number(value);
+  if (!Number.isFinite(num)) return fallback;
+  return Math.min(max, Math.max(min, num));
+}
 
 function getPaperBackground(hex, opacity, intensity) {
   let cleanHex = hex.replace('#', '');

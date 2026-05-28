@@ -132,7 +132,20 @@
     position: absolute;
     inset: 0;
   }
-  .print-content { position: relative; z-index: 1; }
+  .print-content {
+    position: relative;
+    z-index: 1;
+    min-height: calc(297mm - (var(--print-margin, 15mm) * 2));
+    display: flex;
+    flex-direction: column;
+  }
+  .print-sections {
+    flex: 1 1 auto;
+  }
+  .print-powered-by {
+    margin-top: auto;
+    padding-top: 0.8em;
+  }
 }
 
 /* ============================================================
@@ -171,6 +184,16 @@
 .print-page .print-content {
   position: relative;
   z-index: 1;
+  min-height: calc(297mm - (var(--print-margin, 15mm) * 2));
+  display: flex;
+  flex-direction: column;
+}
+.print-page .print-sections {
+  flex: 1 1 auto;
+}
+.print-page .print-powered-by {
+  margin-top: auto;
+  padding-top: 0.8em;
 }
 
 .print-page .price-row {

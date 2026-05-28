@@ -157,6 +157,66 @@ export default function StyleEditor({ settings, onSaved }) {
 
         <div className="border-t border-bistrot-100 pt-5 space-y-4">
           <h4 className="font-semibold text-bistrot-700 text-sm uppercase tracking-wider">
+            Tipografia stampa menu
+          </h4>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <label className="inline-flex items-center gap-2 text-sm text-bistrot-700">
+                <input
+                  type="checkbox"
+                  checked={String(form.print_section_title_center || 'false') === 'true'}
+                  onChange={(e) => update('print_section_title_center', e.target.checked ? 'true' : 'false')}
+                />
+                Titoli categorie centrati
+              </label>
+            </div>
+            <div>
+              <label className="label">Font titoli categorie</label>
+              <select className="input"
+                      value={form.print_section_title_font || form.font_title || 'Playfair Display'}
+                      onChange={(e) => update('print_section_title_font', e.target.value)}>
+                {FONT_OPTIONS.map(f => <option key={f} value={f}>{f}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="label">Dimensione titoli categorie (em)</label>
+              <input className="input" type="number" min="0.8" max="2.4" step="0.05"
+                     value={form.print_section_title_size_em || 1.4}
+                     onChange={(e) => update('print_section_title_size_em', e.target.value)} />
+            </div>
+            <div>
+              <label className="label">Font corpo piatti</label>
+              <select className="input"
+                      value={form.print_body_font || form.font_body || 'Playfair Display'}
+                      onChange={(e) => update('print_body_font', e.target.value)}>
+                {FONT_OPTIONS.map(f => <option key={f} value={f}>{f}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="label">Dimensione corpo piatti (em)</label>
+              <input className="input" type="number" min="0.8" max="1.6" step="0.05"
+                     value={form.print_body_size_em || 1}
+                     onChange={(e) => update('print_body_size_em', e.target.value)} />
+            </div>
+            <div>
+              <label className="label">Font sottotitoli piatti</label>
+              <select className="input"
+                      value={form.print_subtitle_font || form.font_body || 'Montserrat'}
+                      onChange={(e) => update('print_subtitle_font', e.target.value)}>
+                {FONT_OPTIONS.map(f => <option key={f} value={f}>{f}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="label">Dimensione sottotitoli piatti (em)</label>
+              <input className="input" type="number" min="0.7" max="1.3" step="0.05"
+                     value={form.print_subtitle_size_em || 0.88}
+                     onChange={(e) => update('print_subtitle_size_em', e.target.value)} />
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-bistrot-100 pt-5 space-y-4">
+          <h4 className="font-semibold text-bistrot-700 text-sm uppercase tracking-wider">
             Stile del Foglio (Sfondo)
           </h4>
           <div className="grid md:grid-cols-3 gap-4">
